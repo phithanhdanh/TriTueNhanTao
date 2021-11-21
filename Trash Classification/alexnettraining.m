@@ -5,11 +5,11 @@ imdsTrain = imageDatastore('data/train images', ...
     'LabelSource','foldernames'); 
 imdsValidation = imageDatastore('data/validation images', ...
     'IncludeSubfolders',true, ...
-    'LabelSource','foldernames'); 
+    'LabelSource','foldernames');
 
 %% 
 %LOAD PRETRAINED NETWORK
-net = resnet18;
+net = alexnet;
 %analyzeNetwork(net);
 inputSize = net.Layers(1).InputSize;
 
@@ -22,10 +22,10 @@ layers = [
     classificationLayer];
 
 lgraph=layerGraph(net);
-lgraph = removeLayers(lgraph,{'ClassificationLayer_predictions','prob','fc1000'});
+lgraph = removeLayers(lgraph,{'output','prob','fc8'});
 lgraph = addLayers(lgraph,layers);
-lgraph = connectLayers(lgraph,'pool5','fc');
-%analyzeNetwork(lgraph)
+lgraph = connectLayers(lgraph,'drop7','fc');
+%analyzeNetwork(lgraph);
 
 %%
 %TRAIN NETWORK
