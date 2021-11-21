@@ -14,7 +14,6 @@ inputSize = net.Layers(1).InputSize;
 %% 
 %REPLACE FINAL LAYERS
 numClasses = numel(categories(imdsTrain.Labels));
-% lgraph = net.Layers(1:end-3);
 layers = [
     fullyConnectedLayer(numClasses,"WeightLearnRateFactor",10,"BiasLearnRateFactor",10)
     softmaxLayer
@@ -24,7 +23,7 @@ lgraph=layerGraph(net);
 lgraph = removeLayers(lgraph,{'ClassificationLayer_predictions','prob','fc1000'});
 lgraph = addLayers(lgraph,layers);
 lgraph = connectLayers(lgraph,'pool5','fc');
-analyzeNetwork(lgraph)
+%analyzeNetwork(lgraph)
 
 %%
 %TRAIN NETWORK
@@ -40,7 +39,9 @@ imageAugmenter = imageDataAugmenter( ...
     'RandRotation',[-180 180]);
 augimdsTrain = augmentedImageDatastore(inputSize(1:2),imdsTrain, ...
     'DataAugmentation',imageAugmenter,'ColorPreprocessing','gray2rgb');
-augimdsValidation = augmentedImageDatastore(inputSize(1:2),imdsValidation,'ColorPreprocessing','gray2rgb');
+augimdsValidation = augmentedImageDatastore(inputSize(1:2), ...
+    imdsValidation,'ColorPreprocessing','gray2rgb');
+
 %Training options
 options = trainingOptions("sgdm",...
     'MiniBatchSize',10,...
@@ -51,6 +52,7 @@ options = trainingOptions("sgdm",...
     'ValidationFrequency',3,...
     'Verbose',false,...
     'Plots','training-progress');
+
 %Train
 net = trainNetwork(augimdsTrain,lgraph,options);
 
