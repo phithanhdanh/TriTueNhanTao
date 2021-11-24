@@ -22,7 +22,7 @@ layers = [
     classificationLayer];
 
 lgraph=layerGraph(net);
-lgraph = removeLayers(lgraph,{'ClassificationLayer_predictions','prob','fc1000'});
+lgraph = removeLayers(lgraph,{'ClassificationLayer_predictions','prob','fc1000'}); 
 lgraph = addLayers(lgraph,layers);
 lgraph = connectLayers(lgraph,'pool5','fc');
 %analyzeNetwork(lgraph)
