@@ -2,9 +2,6 @@
 %To use this script: define your network as "net"
 
 inputSize = net.Layers(1).InputSize;
-imdsValidation = imageDatastore('data/validation images', ...
-    'IncludeSubfolders',true, ...
-    'LabelSource','foldernames');
 augimdsValidation = augmentedImageDatastore(inputSize(1:2), ...
     imdsValidation,'ColorPreprocessing','gray2rgb');
 

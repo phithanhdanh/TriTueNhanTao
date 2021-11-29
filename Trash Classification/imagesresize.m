@@ -1,6 +1,6 @@
 
 %load the new images as an image datastore
-imds = imageDatastore('data/images', ...
+imds = imageDatastore('images', ...
     'IncludeSubfolders',true, ...
     'LabelSource','foldernames');
 
@@ -9,7 +9,7 @@ imds = imageDatastore('data/images', ...
 %% 
 
 %Export transformed data sets
-location = fullfile(pwd,'data');
+location = fullfile(pwd,'transformeddata');
 temp = transform(imdsTest,@(x) squarecrop(x));
 writeall(temp,fullfile(location,'test images'),"FilenamePrefix",'aug_',OutputFormat='jpeg');
 temp = transform(imdsTrain,@(x) squarecrop(x));
@@ -19,6 +19,7 @@ writeall(temp,fullfile(location,'validation images'),"FilenamePrefix",'aug_',Out
 %% 
 
 %Export untransformed data sets
+location = fullfile(pwd,'untransformeddata');
 writeall(imdsTest,fullfile(location,'test images'),"OutputFormat","jpeg");
 writeall(imdsValidation,fullfile(location,'validation images'),"OutputFormat","jpeg");
 writeall(imdsTrain,fullfile(location,'train images'),"OutputFormat","jpeg");

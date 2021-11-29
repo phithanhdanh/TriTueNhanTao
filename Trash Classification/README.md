@@ -9,5 +9,6 @@ B5: save lai net da train
 
 %HUONG DAN VALIDATE HOAC TEST NETWORK DA TRAIN LAI
 B1: load mang da train vao matlab va dat ten bang "net"
+B2: load data bang file LoadDatasets.m
 B2: chay file ValidateNetwork.m hoac TestNetwork.m de tinh Do chinh xac top 1 va top 5 cho tap anh Validation hoac Test
 

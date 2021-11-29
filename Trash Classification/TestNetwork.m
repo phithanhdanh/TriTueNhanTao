@@ -2,9 +2,6 @@
 %To use this script: define your network as "net"
 
 inputSize = net.Layers(1).InputSize;
-imdsTrain = imageDatastore('data/test images', ...
-    'IncludeSubfolders',true, ...
-    'LabelSource','foldernames'); 
 augimdsTest = augmentedImageDatastore(inputSize(1:2), ...
     imdsTest,'ColorPreprocessing','gray2rgb');
 
